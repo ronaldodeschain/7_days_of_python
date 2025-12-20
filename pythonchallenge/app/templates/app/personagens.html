@@ -1,25 +1,33 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personagens Traduzidos</title>
     <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
 </head>
+
 <body>
     <div class="container">
-        <h1>Personagens de Avatar: A lenda de Aang</h1>
-        {% if personagens%}
-            {% for personagem in personagens %}
-            <div class="personagem-card">
-                <p><strong>Nome:</strong> {{ personagem.name }}</p>
-                <p><strong>Afiliação:</strong> {{ personagem.affiliation }}</p>
-            </div>
+        {% if personagens %}
+        <table>
+            <tr>
+                <th class="personagem-card"><strong>Nome</strong></th>
+                <th class="personagem-card"><strong>Afiliação</strong></th>
+            </tr>
+            {% for personagem in personagens%}
+            <tr>
+                <td class="personagem-card">{{ personagem.name}}</td>
+                <td class="personagem-card">{{ personagem.affiliation}}</td>
+            </tr>
             {% endfor %}
+        </table>
         {% else %}
-            <p>Nenhum personagem encontrado</p>
+            <p>Nenhum personagem encontrado!</p>
         {% endif %}
     </div>
 </body>
+
 </html>

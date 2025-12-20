@@ -13,18 +13,22 @@ async def listar_personagens(request):
         response = await client.get(url)
         personagens = response.json()
 
+        # Ordena a lista de personagens pelo nome original antes de traduzir
+        # personagens.sort(key=lambda x: x.get('name', ''))
+
         for personagem in personagens:
             nome_original = personagem.get('name', '')
-            afiliacao_original = personagem.get('affiliation', 'Nenhuma') # Adicionado valor padrão
-
+            afiliacao_original = personagem.get('affiliation', 'Nenhuma')
             # Use 'await' para as chamadas de tradução
-            nome_traduzido_obj = await translator.translate(nome_original, dest='pt')
-            afiliacao_traduzida_obj = await translator.translate(afiliacao_original, dest='pt')
+            nome_traduzido_obj = await translator.translate(nome_original,
+                                                            dest='pt')
+            afiliacao_traduzida_obj = await translator.translate(
+                afiliacao_original, dest='pt')
 
             personagens_traduzidos.append({
                 'name': nome_traduzido_obj.text,
                 'affiliation': afiliacao_traduzida_obj.text
             })
 
-    context = {'personagens': personagens_traduzidos} # Corrigido para 'characters' para corresponder ao template
+    context = {'personagens': personagens_traduzidos}
     return render(request, 'app/personagens.html', context)
