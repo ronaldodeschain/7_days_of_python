@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personagens Traduzidos</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'app/css/main.css' %}">
 </head>
 
@@ -14,13 +16,20 @@
         {% if personagens %}
         <table>
             <tr>
+                <th class="personagem-card"><strong>ID</strong></th>
                 <th class="personagem-card"><strong>Nome</strong></th>
                 <th class="personagem-card"><strong>Afiliação</strong></th>
+                <th class="personagem-card"><strong>Imagem</strong></th>
             </tr>
             {% for personagem in personagens%}
-            <tr>
-                <td class="personagem-card">{{ personagem.name}}</td>
-                <td class="personagem-card">{{ personagem.affiliation}}</td>
+            <tr class="personagem-card">
+                <td class="personagem-card">{{forloop.counter}}</td>
+                <td class="personagem-card">{{ personagem.nome_traduzido}}</td>
+                <td class="personagem-card">{{ personagem.afiliacao_traduzida}}</td>
+                <td class="personagem-card"><img src="{{ personagem.photoUrl }}"
+                    alt ="{{ personagem.name }}"
+                class="img-fluid rounded-circle" 
+                style="width: 50px; height: 50px;"></td>
             </tr>
             {% endfor %}
         </table>
